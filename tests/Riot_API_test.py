@@ -24,4 +24,13 @@ data_specfic_match = requests.get(api_url_specifc_match)
 
 specic_match_data = data_specfic_match.json()
 
-print(specic_match_data["info"]["participants"][9]["win"])
+summoner_name = input("Type your summoner name: ")
+game_tag = input("Type your ingame tag: ")
+
+user_info_url = f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{summoner_name}/{game_tag}?api_key={api_key}"
+
+user_info = requests.get(user_info_url)
+
+user_puuid = user_info.json()["puuid"]
+
+print(user_puuid)
