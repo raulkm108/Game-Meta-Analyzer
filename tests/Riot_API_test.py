@@ -56,4 +56,4 @@ for match in user_matches_list:
         loses += 1
         print(f"One Lose ({loses})")
 
-print(wins/loses)
+print(f"The summoner {summoner_name} has a winrate of {round(wins/loses, 2)} in the last {number_of_matches} games")
