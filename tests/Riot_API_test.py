@@ -40,4 +40,20 @@ user_matches_info = requests.get(user_matches_list_url)
 
 user_matches_list = user_matches_info.json()
 
-print(user_matches_list)
+wins = 0
+loses= 0
+
+for match in user_matches_list:
+    match_info_ulr = f"https://americas.api.riotgames.com/lol/match/v5/matches/{match}?api_key={api_key}"
+    match_info = requests.get(match_info_ulr)
+    player_index = match_info.json()["metadata"]["participants"].index(user_puuid)
+    match_result = match_info.json()["info"]["participants"][player_index]["win"]
+    if match_result:
+        wins += 1
+        print(f"One Win ({wins})")
+
+    else:
+        loses += 1
+        print(f"One Lose ({loses})")
+
+print(wins/loses)
