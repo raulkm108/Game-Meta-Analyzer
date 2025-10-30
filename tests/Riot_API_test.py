@@ -1,4 +1,7 @@
 import requests
+import datetime as dt
+
+ti = dt.datetime.now()
 
 api_key = 'RGAPI-3e2219b5-edf0-4e48-99f4-971e4fe0e5d2'
 
@@ -56,4 +59,8 @@ for match in user_matches_list:
         loses += 1
         print(f"One Lose ({loses})")
 
-print(f"The summoner {summoner_name} has a winrate of {round(wins/loses, 2)} in the last {number_of_matches} games")
+print(f"The summoner {summoner_name} has a winrate of {round(wins/(wins + loses), 2)} in the last {number_of_matches} games")
+
+tf = dt.datetime.now()
+
+print (tf - ti)
