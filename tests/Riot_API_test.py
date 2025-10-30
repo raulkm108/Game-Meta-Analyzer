@@ -61,7 +61,7 @@ for match in user_matches_list:
 
     if match_type == "CLASSIC":
         match_type = "SUMMONER'S RIFT"
-        summoners_rift += 1
+        summoners_rifts += 1
 
     if match_type == "ARAM":
         arams += 1
