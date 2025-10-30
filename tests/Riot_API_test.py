@@ -26,6 +26,7 @@ specic_match_data = data_specfic_match.json()
 
 summoner_name = input("Type your summoner name: ")
 game_tag = input("Type your ingame tag: ")
+number_of_matches = input("How many matches you wanna analyze: ")
 
 user_info_url = f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{summoner_name}/{game_tag}?api_key={api_key}"
 
@@ -33,4 +34,10 @@ user_info = requests.get(user_info_url)
 
 user_puuid = user_info.json()["puuid"]
 
-print(user_puuid)
+user_matches_list_url = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{user_puuid}/ids?start=0&count={number_of_matches}&api_key={api_key}"
+
+user_matches_info = requests.get(user_matches_list_url)
+
+user_matches_list = user_matches_info.json()
+
+print(user_matches_list)
