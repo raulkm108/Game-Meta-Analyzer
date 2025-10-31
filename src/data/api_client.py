@@ -16,3 +16,6 @@ class RiotAPIClient:
         user_matches_history = requests.get(user_match_history_url)
         user_matches_list = user_matches_history.json()
         return user_matches_list
+    
+    def print_winrate(self, user_mathces_list: list) -> None:
+        pass
