@@ -1,7 +1,11 @@
 from src.data.api_client import RiotAPIClient
 import pytest
+from dotenv import load_dotenv
+import os
 
-API_KEY = "RGAPI-9d00f3d3-5fcf-4121-9a53-08e917205890"
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 
 def test_acquire_puuid():
 
@@ -26,7 +30,7 @@ def test_get_user_stats():
 
     request = RiotAPIClient(api_key=API_KEY, region="americas")
 
-    number_of_matches = 90
+    number_of_matches = 10
     user_match_list = request.acquire_match_list(user_puuid="J-QS4qK-tf-R28QaY6m7iYjwjm_wj8FYB7gYxW8Lwiq-Myb3FQb-8QY8ftEUEn1ZXP0d035EcKmNmQ", number_of_matches=number_of_matches)
     stats_of_user = request.get_user_stats(user_puuid="J-QS4qK-tf-R28QaY6m7iYjwjm_wj8FYB7gYxW8Lwiq-Myb3FQb-8QY8ftEUEn1ZXP0d035EcKmNmQ", user_matches_list=user_match_list)
 
