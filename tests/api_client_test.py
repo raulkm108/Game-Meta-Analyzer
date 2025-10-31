@@ -1,9 +1,11 @@
 from src.data.api_client import RiotAPIClient
 import pytest
 
+API_KEY = "RGAPI-9d00f3d3-5fcf-4121-9a53-08e917205890"
+
 def test_acquire_puuid():
 
-    request = RiotAPIClient(api_key="RGAPI-3e2219b5-edf0-4e48-99f4-971e4fe0e5d2", region="americas")
+    request = RiotAPIClient(api_key=API_KEY, region="americas")
 
     user_puuid = request.acquire_puuid(summoner_name="SnowTime", summoner_tag="br1")
 
@@ -12,12 +14,33 @@ def test_acquire_puuid():
 
 def test_acquire_match_list():
 
-    request = RiotAPIClient(api_key="RGAPI-3e2219b5-edf0-4e48-99f4-971e4fe0e5d2", region="americas")
+    request = RiotAPIClient(api_key=API_KEY, region="americas")
     number_of_matches = 10
 
     user_match_list = request.acquire_match_list(user_puuid="J-QS4qK-tf-R28QaY6m7iYjwjm_wj8FYB7gYxW8Lwiq-Myb3FQb-8QY8ftEUEn1ZXP0d035EcKmNmQ", number_of_matches=number_of_matches)
 
     assert isinstance(user_match_list, list)
     assert len(user_match_list) == number_of_matches
+
+def test_get_user_stats():
+
+    request = RiotAPIClient(api_key=API_KEY, region="americas")
+
+    number_of_matches = 90
+    user_match_list = request.acquire_match_list(user_puuid="J-QS4qK-tf-R28QaY6m7iYjwjm_wj8FYB7gYxW8Lwiq-Myb3FQb-8QY8ftEUEn1ZXP0d035EcKmNmQ", number_of_matches=number_of_matches)
+    stats_of_user = request.get_user_stats(user_puuid="J-QS4qK-tf-R28QaY6m7iYjwjm_wj8FYB7gYxW8Lwiq-Myb3FQb-8QY8ftEUEn1ZXP0d035EcKmNmQ", user_matches_list=user_match_list)
+
+    assert "wins" in stats_of_user
+    assert "loses" in stats_of_user
+    assert "Aram" in stats_of_user
+    assert "Summoners Rift" in stats_of_user
+    assert "Arena" in stats_of_user
+
+    assert stats_of_user["wins"] is not None
+    assert stats_of_user["loses"] is not None
+    assert stats_of_user["Aram"] is not None
+    assert stats_of_user["Summoners Rift"] is not None
+    assert stats_of_user["Arena"] is not None
+
 
 
