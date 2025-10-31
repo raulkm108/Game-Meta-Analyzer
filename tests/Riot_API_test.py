@@ -33,6 +33,8 @@ for match in user_matches_list:
     player_index = match_info.json()["metadata"]["participants"].index(user_puuid)
     match_result = match_info.json()["info"]["participants"][player_index]["win"]
     match_type = match_info.json()["info"]["gameMode"]
+
+    
     if match_type == "CHERRY":
         match_type = "ARENA"
         arenas += 1
