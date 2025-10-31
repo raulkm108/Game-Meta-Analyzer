@@ -5,7 +5,8 @@
         "**/.hg": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "**/.gitignore": true,
+        "**/.gitignore": false,
         "**/.gitattributes": true,
+        "**/__pycache__": true,
     }
 }
