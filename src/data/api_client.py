@@ -17,5 +17,47 @@ class RiotAPIClient:
         user_matches_list = user_matches_history.json()
         return user_matches_list
     
-    def print_winrate(self, user_mathces_list: list) -> None:
-        pass
+    def get_user_stats(self, user_puuid: str, user_matches_list: list) -> None:
+        stats = {
+            "wins": 0,
+            "loses": 0,
+            "Arena": 0,
+            "Summoners Rift": 0,
+            "Aram":0
+        }
+        type_mapying ={
+            "CHERRY": ["Arena", 0],
+            "CLASSIC": ["Summoners Rift", 0],
+            "ARAM": ["Aram", 0]
+        }
+
+        for match in user_matches_list:
+            match_info_ulr = f"https://{self.region}.api.riotgames.com/lol/match/v5/matches/{match}?api_key={self.api_key}"
+            match_info = requests.get(match_info_ulr)
+            player_index = match_info.json()["metadata"]["participants"].index(user_puuid)
+            match_result = match_info.json()["info"]["participants"][player_index]["win"]
+            match_type = match_info.json()["info"]["gameMode"]
+
+            for match in type_mapying:
+                if match == match_type:
+                    match[1] += 1
+                    stats[match[0]] += 1
+
+            if match_result:
+                stats["wins"] += 1
+                print(f"{stats["wins"]}th on ({match_type})")
+
+            else:
+                stats["lose"] += 1
+                print(f"{stats["loses"]}th on ({match_type})")
+
+        return (stats)
+
+    
+
+     
+        
+
+
+        
+
