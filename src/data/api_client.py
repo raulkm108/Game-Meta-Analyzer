@@ -1,4 +1,10 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 
 class RiotAPIClient:
     def __init__(self, api_key: str, region="americas") -> None:
@@ -40,15 +46,14 @@ class RiotAPIClient:
 
             for match in type_mapying:
                 if match == match_type:
-                    match[1] += 1
-                    stats[match[0]] += 1
+                    stats[type_mapying[match][0]] += 1
 
             if match_result:
                 stats["wins"] += 1
                 print(f"{stats["wins"]}th on ({match_type})")
 
             else:
-                stats["lose"] += 1
+                stats["loses"] += 1
                 print(f"{stats["loses"]}th on ({match_type})")
 
         return (stats)
